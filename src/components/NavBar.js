@@ -21,6 +21,8 @@ const NavBar = () => {
     return(
         <Router>
         <nav className='flex items-center justify-between w-full shadow-md bg-white fixed'>
+
+            {/*Facebook icon and Search Bar*/}
             <div className="flex items-center">
                 <Link to='/'><FaFacebook color='blue' className= 'w-10 h-100 rounded-full mx-3 my-1'/></Link>
                 <div className="bg-gray-200 flex items-center rounded-full">
@@ -29,14 +31,14 @@ const NavBar = () => {
                 </div>
             </div>
 
-
+            {/*Home, Groups, Watch*/}
             <div className="h-full w-60 items-center justify-between hidden md:flex">
                 <div><Link to='/'><AiFillHome color={color[0]} className='w-8 h-full' onClick={() => changeColor(0)}/></Link></div>
                 <div><Link to='/groups'><AiOutlineUsergroupAdd color={color[1]} className='w-8 h-full' onClick={() => changeColor(1)}/></Link></div>
-                <div><Link to='/videos'><MdVideoLibrary color={color[2]} className='w-8 h-full' onClick={() => changeColor(2)}/></Link></div>
+                <div><Link to='/watch'><MdVideoLibrary color={color[2]} className='w-8 h-full' onClick={() => changeColor(2)}/></Link></div>
             </div>
 
-
+            {/*Profile, Messenger, Notif, Account*/}
             <div className="h-full w-48 flex">
                 <div className='bg-gray-100 w-75 rounded-full py-2 px-3'><Link to='/profile'>Profile</Link></div>
                 <div className='bg-gray-100 p-2 rounded-full'><Link to='/messenger'><SiMessenger className='w-6 h-full'/></Link></div>
@@ -45,6 +47,8 @@ const NavBar = () => {
             </div>
             
         </nav>
+        <br></br>
+        <br></br>
         </Router>
     )
 }
