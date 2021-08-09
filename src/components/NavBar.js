@@ -12,10 +12,25 @@ import {BrowserRouter as Router, Switch, Link, Route, useParams, useHistory} fro
 
 const NavBar = () => {
     const [color, setColor] = useState(['blue', 'black', 'black'])
+    const [display, setDisplay] = useState(['block', 'hidden'])
+    const [style, setStyle] = useState('w-full w-60 hidden md:hidden')
 
     const changeColor = (index) => {
         setColor(color.map((c, n) => n === index ? c = 'blue' : c = 'black'))
         console.log(color)
+    }
+
+    const handleHamburger = () => {
+        if (display[0] === 'block'){
+            setDisplay(['hidden', 'block'])
+            setStyle('w-full w-60 block md:hidden')
+            console.log('hello')
+        }
+        else {
+            setDisplay(['block', 'hidden'])
+            setStyle('w-full w-60 hidden md:hidden')
+            console.log('hello 2')
+        }   
     }
 
     return(
@@ -32,10 +47,17 @@ const NavBar = () => {
             </div>
 
             {/*Home, Groups, Watch*/}
+            <div className="flex md:hidden">
+             <button id="hamburger" onClick={handleHamburger}>
+                <img className= {display[0]} src="https://img.icons8.com/fluent-systems-regular/2x/menu-squared-2.png" width="40" height="40" />
+                <img className={display[1]} src="https://img.icons8.com/fluent-systems-regular/2x/close-window.png" width="40" height="40" />
+            </button>
+            </div>
+
             <div className="h-full w-60 items-center justify-between hidden md:flex">
-                <div><Link to='/'><AiFillHome color={color[0]} className='w-8 h-full' onClick={() => changeColor(0)}/></Link></div>
-                <div><Link to='/groups'><AiOutlineUsergroupAdd color={color[1]} className='w-8 h-full' onClick={() => changeColor(1)}/></Link></div>
-                <div><Link to='/watch'><MdVideoLibrary color={color[2]} className='w-8 h-full' onClick={() => changeColor(2)}/></Link></div>
+                <div className='block md:inline-block'><Link to='/'><AiFillHome color={color[0]} className='w-8 h-full' onClick={() => changeColor(0)}/></Link></div>
+                <div className='block md:inline-block'><Link to='/groups'><AiOutlineUsergroupAdd color={color[1]} className='w-8 h-full' onClick={() => changeColor(1)}/></Link></div>
+                <div className='block md:inline-block'><Link to='/watch'><MdVideoLibrary color={color[2]} className='w-8 h-full' onClick={() => changeColor(2)}/></Link></div>
             </div>
 
             {/*Profile, Messenger, Notif, Account*/}
@@ -47,8 +69,31 @@ const NavBar = () => {
             </div>
             
         </nav>
+
+
+
         <br></br>
         <br></br>
+
+        <div className={style}>
+
+        <div className='flex w-full bg-gray-400'>
+        <div><Link to='/'><AiFillHome color={color[0]} className='w-8 h-full' onClick={() => changeColor(0)}/></Link></div>
+        <div className='py-4 px-3 font-bold text-xl'><Link to='/' onClick={() => changeColor(0)}>Home</Link></div>
+        </div>
+
+        <div className='flex w-full bg-gray-400'>
+        <div><Link to='/'><AiOutlineUsergroupAdd color={color[1]} className='w-8 h-full' onClick={() => changeColor(1)}/></Link></div>
+        <div className='py-4 px-3 font-bold text-xl'><Link to='/groups' onClick={() => changeColor(1)}>Groups</Link></div>
+        </div>
+
+        <div className='flex w-full bg-gray-400'>
+        <div><Link to='/'><MdVideoLibrary color={color[2]} className='w-8 h-full' onClick={() => changeColor(2)}/></Link></div>
+        <div className='py-4 px-3 font-bold text-xl'><Link to='/watch' onClick={() => changeColor(2)}>Watch</Link></div>
+        </div>
+
+        </div>
+
         </Router>
     )
 }
