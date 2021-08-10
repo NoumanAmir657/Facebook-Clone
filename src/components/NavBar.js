@@ -2,11 +2,12 @@ import React, {useState} from 'react';
 import {FaFacebook} from 'react-icons/fa'
 import {BsSearch} from 'react-icons/bs'
 import {AiFillHome} from 'react-icons/ai'
-import {AiOutlineUsergroupAdd} from 'react-icons/ai'
+import {AiOutlineUsergroupAdd, AiOutlineCloseSquare} from 'react-icons/ai'
 import {MdVideoLibrary} from 'react-icons/md'
 import {SiMessenger} from 'react-icons/si'
 import {IoMdNotifications} from 'react-icons/io'
 import {BsArrowDownShort} from 'react-icons/bs'
+import {GiHamburgerMenu} from 'react-icons/gi'
 import {BrowserRouter as Router, Switch, Link, Route, useParams, useHistory} from "react-router-dom"
 
 
@@ -49,8 +50,8 @@ const NavBar = () => {
             {/*Home, Groups, Watch*/}
             <div className="flex md:hidden">
              <button id="hamburger" onClick={handleHamburger}>
-                <img className= {display[0]} src="https://img.icons8.com/fluent-systems-regular/2x/menu-squared-2.png" width="40" height="40" />
-                <img className={display[1]} src="https://img.icons8.com/fluent-systems-regular/2x/close-window.png" width="40" height="40" />
+                <GiHamburgerMenu className={display[0]} color='black' size='2em'/>
+                <AiOutlineCloseSquare className={display[1]} color='black' size='2em'/>
             </button>
             </div>
 
