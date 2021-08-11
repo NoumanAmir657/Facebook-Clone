@@ -36,7 +36,7 @@ const NavBar = () => {
 
     return(
         <Router>
-        <nav className='flex items-center justify-between w-full shadow-md bg-white fixed'>
+        <nav className='flex items-center justify-between w-full shadow-md bg-white fixed z-40'>
 
             {/*Facebook icon and Search Bar*/}
             <div className="flex items-center">
