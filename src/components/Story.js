@@ -1,6 +1,4 @@
 import React from 'react'
-import {CgProfile} from 'react-icons/cg'
-import {BrowserRouter as Router, Switch, Link, Route, useParams, useHistory} from "react-router-dom"
 
 const Story = ({src}) => {
     return (

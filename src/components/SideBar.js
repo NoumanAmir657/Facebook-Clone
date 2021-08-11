@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {BrowserRouter as Router, Switch, Link, Route, useParams, useHistory} from "react-router-dom"
-import {HiInformationCircle} from 'react-icons/hi'
 import {FaUserFriends} from 'react-icons/fa'
 import {AiOutlineUsergroupAdd} from 'react-icons/ai'
 import {MdVideoLibrary} from 'react-icons/md'
