@@ -5,36 +5,43 @@ import StoryReel from './components/StoryReel';
 import Post from './components/Post'
 import PostShow from './components/PostShow';
 import Widgets from './components/Widget';
+import {useStateValue} from './StateProvider'
+import Login from './components/Login'
 
 const App = () => {
-  const [posted, setPosted] = useState(false)
-  const [posts, setPosts] = useState([{user: 'Lake', postMsg: 'Hello', media: null}])
-  const [user, setUser] = useState('Lake')
+  const [{user}, dispatch] = useStateValue()
 
   return (
-    <body className='bg-gray-100'>
+    <div className='bg-gray-100'>
 
-      <NavBar/>
+    {
+      user ? (
+        <React.Fragment>
+        <NavBar/>
 
-      <div className='flex justify-between'>
-
-        <SideBar/>
-
-        <div>
-
-          <StoryReel/>
-
-          <Post posts={posts} setPosts={setPosts} user={user}/>
-
-          {posts.map((post) => <PostShow post={post}/>)}
-
-        </div>
-
-        <Widgets/>
-    
-      </div>
-
-    </body>
+        <div className='flex justify-between'>
+  
+          <SideBar/>
+  
+          <div>
+  
+            <StoryReel/>
+  
+            <Post/>
+  
+            <PostShow/>
+  
+          </div>
+  
+          <Widgets/>
+      
+        </div>  
+        </React.Fragment>
+      ) : (
+        <Login/>
+      )
+    }
+    </div>
   )
 }
 

@@ -5,7 +5,7 @@ import {IoMdPhotos} from 'react-icons/io'
 import {BsCameraVideoFill} from 'react-icons/bs'
 import {VscSmiley} from 'react-icons/vsc'
 
-const Post = ({posts, setPosts, user}) => {
+const Post = () => {
     const [image, setImage] = useState(null)
     const [postMsg, setPostMsg] = useState(null)
 
@@ -20,12 +20,11 @@ const Post = ({posts, setPosts, user}) => {
         event.preventDefault()
         console.log('Submitting')
         let currentPost = {
-            user: user,
+            user: 'Lake',
             postMsg: postMsg,
             media: image
         }
         setPostMsg('')
-        setPosts(posts.concat(currentPost))
     }
 
     const handlePostMsg = (event) => {
