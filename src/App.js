@@ -4,6 +4,7 @@ import SideBar from './components/SideBar';
 import StoryReel from './components/StoryReel';
 import Post from './components/Post'
 import PostShow from './components/PostShow';
+import Widgets from './components/Widget';
 
 const App = () => {
   const [posted, setPosted] = useState(false)
@@ -29,7 +30,7 @@ const App = () => {
 
         </div>
 
-        <diV className='hidden md:block'>LeftBarLeftBarLeftBarLeftBarLeftBarLeftBarLeftBar</diV>
+        <Widgets/>
     
       </div>
 
