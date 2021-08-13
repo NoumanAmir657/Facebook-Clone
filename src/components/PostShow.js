@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Switch, Link, Route, useParams, useHistory} fro
 
 const PostShow = ({profilePic, imgName, username, timestamp, message}) => {
     console.log(timestamp)
+    console.log(imgName)
     return (
         <Router>
         <div className='bg-white container shadow-2xl rounded-sm'>
@@ -15,15 +16,15 @@ const PostShow = ({profilePic, imgName, username, timestamp, message}) => {
 
             {
                 imgName ? (
-                    <div className="post__image">
-                        <img src={`http:localhost:9000/retrieve/image/single?name=${imgName}`} alt='image_here' />
-                    </div>
+                    
+                        <img src={`/retrieve/image/single?name=${imgName}`} className='m-auto' width='500px' height='' alt='image_here' />
+                    
                 ) : (
                         console.log('DEBUG >>> no image here')
                     )
             }
 
-            <div className='flex w-full border-2 border-black'>
+            <div className='flex w-full border-2 border-black my-2'>
                 <div className= 'w-full '><button className='w-full font-bold'>Like</button></div>
                 <div className=' w-full '><button className='w-full font-bold'>Comment</button></div>
                 <div className=' w-full '><button className='w-full font-bold'>Share</button></div>

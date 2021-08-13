@@ -49,6 +49,15 @@ const Post = () => {
                 console.log(postData)
                 savePost(postData)
             })
+        } else {
+            const postData = {
+                text: postMsg,
+                user: user.displayName,
+                avatar: user.photoURL,
+                timestamp: Date.now()
+            }
+            console.log(postData)
+            savePost(postData)
         }
 
         setPostMsg('')
@@ -93,7 +102,7 @@ const Post = () => {
             <div className='flex justify-center my-2 w-full'>
             
             <input type='file' className='' onChange={handleChange}></input>
-            <button type='submit' className='bg-blue-300 rounded-lg px-3 border-2 border-black font-bold'>Post</button>
+            <button type='submit' className='bg-blue-300 hover:bg-blue-500 rounded-lg px-3 border-2 border-black font-bold'>Post</button>
             
             </div>
 
