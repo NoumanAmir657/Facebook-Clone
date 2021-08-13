@@ -9,11 +9,23 @@ import {useStateValue} from './StateProvider'
 import Login from './components/Login'
 import axios from './axios'
 import { useEffect } from 'react';
+import Pusher from 'pusher-js'
+
+const pusher = new Pusher('93c8583ebfa4115097cd', {
+  cluster: 'ap2'
+});
 
 const App = () => {
   const [{user}, dispatch] = useStateValue()
   const [profilePic, setProfilePic] = useState('')
   const [postsData, setPostsData] = useState([])
+
+  useEffect(() => {
+    const channel = pusher.subscribe('posts')
+    channel.bind('inserted', (data) => {
+        syncFeed()
+    })
+  }, [])
 
   const syncFeed = () => {
     axios.get('/retrieve/posts')
