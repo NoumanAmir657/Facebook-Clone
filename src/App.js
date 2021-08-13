@@ -7,11 +7,25 @@ import PostShow from './components/PostShow';
 import Widgets from './components/Widget';
 import {useStateValue} from './StateProvider'
 import Login from './components/Login'
+import axios from './axios'
+import { useEffect } from 'react';
 
 const App = () => {
   const [{user}, dispatch] = useStateValue()
   const [profilePic, setProfilePic] = useState('')
   const [postsData, setPostsData] = useState([])
+
+  const syncFeed = () => {
+    axios.get('/retrieve/posts')
+    .then((res) => {
+      console.log(res.data)
+      setPostsData(res.data)
+    })
+  }
+
+  useEffect(() => {
+    syncFeed()
+  }, [])
 
   return (
     <div className='bg-gray-100'>
