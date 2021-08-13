@@ -4,10 +4,15 @@ import { BsSearch } from 'react-icons/bs'
 import {IoMdPhotos} from 'react-icons/io'
 import {BsCameraVideoFill} from 'react-icons/bs'
 import {VscSmiley} from 'react-icons/vsc'
+import { useStateValue } from '../StateProvider'
 
 const Post = () => {
     const [image, setImage] = useState(null)
-    const [postMsg, setPostMsg] = useState(null)
+    const [postMsg, setPostMsg] = useState('')
+    const [imageURL, setImageURL] = useState('')
+    const [{user}, dispatch] = useStateValue()
+
+    console.log(user)
 
     const handleChange = (e) => {
         if (e.target.files[0]){
@@ -18,12 +23,16 @@ const Post = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
+
         console.log('Submitting')
         let currentPost = {
             user: 'Lake',
             postMsg: postMsg,
             media: image
         }
+
+        setPostMsg('')
+        setImage(null)
         setPostMsg('')
     }
 
@@ -41,10 +50,10 @@ const Post = () => {
         <form onSubmit={handleSubmit}>
         <div className=' bg-white shadow-2xl rounded-sm container'>
             <div className="flex items-center">
-                <Link to='/profile'><img className="inline-block h-10 w-10 rounded-full ring-2 ring-black my-2 mx-2" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""></img></Link>
+                <Link to='/profile'><img className="inline-block h-10 w-10 rounded-full ring-2 ring-black my-2 mx-2" src={user.photoURL} alt=""></img></Link>
                 <div className="bg-gray-200 flex items-center rounded-full mx-4 w-96">
                     <BsSearch className='mx-2 h-10 w-5'/>
-                    <input type='text' className='w-full bg-transparent rounded-full py-2' placeholder='What is on your mind?' onChange={handlePostMsg}></input>
+                    <input type='text' className='w-full bg-transparent rounded-full py-2' placeholder={`What is on your mind? ${user.displayName}`} onChange={handlePostMsg}></input>
                 </div>
             </div>
             

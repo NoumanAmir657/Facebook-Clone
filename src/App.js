@@ -10,6 +10,8 @@ import Login from './components/Login'
 
 const App = () => {
   const [{user}, dispatch] = useStateValue()
+  const [profilePic, setProfilePic] = useState('')
+  const [postsData, setPostsData] = useState([])
 
   return (
     <div className='bg-gray-100'>
@@ -29,7 +31,17 @@ const App = () => {
   
             <Post/>
   
-            <PostShow/>
+            {
+              postsData.map(entry => (
+                  <PostShow
+                      profilePic={entry.avatar}
+                      message={entry.text}
+                      timestamp={entry.timestamp}
+                      imgName={entry.imgName}
+                      username={entry.user}
+                  />
+              ))
+          }
   
           </div>
   
