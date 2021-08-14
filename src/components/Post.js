@@ -8,13 +8,13 @@ import { useStateValue } from '../StateProvider'
 import axios from '../axios.js'
 import { GiConsoleController } from 'react-icons/gi'
 
-const Post = () => {
+const Post = ({postsData, setPostsData}) => {
     const [image, setImage] = useState(null)
     const [postMsg, setPostMsg] = useState('')
     const [imageURL, setImageURL] = useState('')
     const [{user}, dispatch] = useStateValue()
 
-    console.log(user)
+    // console.log(user)
 
     const handleChange = (e) => {
         if (e.target.files[0]){
@@ -23,7 +23,7 @@ const Post = () => {
         }
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
 
         if (image) {
@@ -46,7 +46,6 @@ const Post = () => {
                     avatar: user.photoURL,
                     timestamp: Date.now()
                 }
-                console.log(postData)
                 savePost(postData)
             })
         } else {
@@ -56,11 +55,10 @@ const Post = () => {
                 avatar: user.photoURL,
                 timestamp: Date.now()
             }
-            console.log(postData)
             savePost(postData)
         }
 
-        setPostMsg('')
+        
         setImage(null)
         setPostMsg('')
     }
@@ -68,7 +66,8 @@ const Post = () => {
     const savePost = async (postData) => {
         await axios.post('/upload/post', postData)
         .then((res) => {
-            console.log(res)
+            console.log(res.data)
+            setPostsData(postsData.concat(res.data).sort((b,a) => a.timestamp-b.timestamp))
         })
     }
 
@@ -116,3 +115,4 @@ const Post = () => {
 }
 
 export default Post
+

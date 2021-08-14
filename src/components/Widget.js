@@ -3,13 +3,12 @@ import React from 'react'
 const Widgets = () => {
     return (
         <div className='widgets' >
-            <iframe src="https://gogoanime.pe/"
+            <iframe src=""
                 width="340"
                 height="1500"
                 style={{ border: "none", overflow: "hidden" }}
                 scrolling="no"
-                frameborder="0"
-                allowTransparency="true"
+                frameBorder="0"
                 allow="encrypted-media"
             ></iframe>
         </div>
