@@ -11,31 +11,32 @@ import axios from './axios'
 import { useEffect } from 'react';
 import Pusher from 'pusher-js'
 
-//const pusher = new Pusher('93c8583ebfa4115097cd', {
-//  cluster: 'ap2'
-//});
+const pusher = new Pusher('93c8583ebfa4115097cd', {
+  cluster: 'ap2'
+});
 
 const App = () => {
   const [{user}, dispatch] = useStateValue()
   const [profilePic, setProfilePic] = useState('')
   const [postsData, setPostsData] = useState([])
   const [temp, setTemp] = useState([])
-  const [postShowPopulated, setPostShowPopulated] = useState([])
 
-  /*
+  
   useEffect(() => {
     const channel = pusher.subscribe('posts')
     channel.bind('inserted', (data) => {
         syncFeed()
     })
+    channel.bind('updated', (data) => {
+        syncFeed()
+    })
   }, [])
-  */
+  
 
 
   const syncFeed = () => {
     axios.get('/retrieve/posts')
     .then((res) => {
-      console.log('hello')
       console.log(res.data)
       setPostsData(res.data)
     })
@@ -64,14 +65,10 @@ const App = () => {
             <Post postsData={postsData} setPostsData={setPostsData}/>
   
             {
-              postsData.map(entry => (
+              postsData.map((entry,i) => (
                 <PostShow
-                    key={entry.id}
-                    profilePic={entry.avatar}
-                    message={entry.text}
-                    timestamp={entry.timestamp}
-                    imgName={entry.imgName}
-                    username={entry.user}
+                    key={postsData.length-i}
+                    fullPost = {entry}
                 />
             ))
           }

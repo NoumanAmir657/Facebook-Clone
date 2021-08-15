@@ -44,7 +44,9 @@ const Post = ({postsData, setPostsData}) => {
                     imgName: res.data.filename,
                     user: user.displayName,
                     avatar: user.photoURL,
-                    timestamp: Date.now()
+                    timestamp: Date.now(),
+                    likes: 0,
+                    likedBy: []
                 }
                 savePost(postData)
             })
@@ -53,7 +55,9 @@ const Post = ({postsData, setPostsData}) => {
                 text: postMsg,
                 user: user.displayName,
                 avatar: user.photoURL,
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                likes: 0,
+                likedBy: []
             }
             savePost(postData)
         }
