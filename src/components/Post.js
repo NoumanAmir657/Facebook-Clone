@@ -46,7 +46,8 @@ const Post = ({postsData, setPostsData}) => {
                     avatar: user.photoURL,
                     timestamp: Date.now(),
                     likes: 0,
-                    likedBy: []
+                    likedBy: [],
+                    comments: []
                 }
                 savePost(postData)
             })
@@ -57,7 +58,8 @@ const Post = ({postsData, setPostsData}) => {
                 avatar: user.photoURL,
                 timestamp: Date.now(),
                 likes: 0,
-                likedBy: []
+                likedBy: [],
+                comments: []
             }
             savePost(postData)
         }

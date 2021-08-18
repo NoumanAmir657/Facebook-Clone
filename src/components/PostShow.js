@@ -3,11 +3,14 @@ import React, {useState} from 'react'
 import {BrowserRouter as Router, Switch, Link, Route, useParams, useHistory} from "react-router-dom"
 import { useStateValue } from '../StateProvider'
 import { useEffect } from 'react'
+import Comment from './Comment'
 
 const PostShow = ({fullPost}) => {
     const [color, setColor] = useState('text-black')
     const [tempLikes, setTempLikes] = useState(fullPost.likes)
     const [{user}, dispatch] = useStateValue()
+    const [showComments, setShowComments] = useState(false)
+    const [comment, setComment] = useState('')
 
     useEffect(() => {
         setTempLikes(fullPost.likes)
@@ -47,6 +50,25 @@ const PostShow = ({fullPost}) => {
         }
     }
 
+    const handleComment = (event) => {
+        setComment(event.target.value)
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        const newComment = {
+            email: user.email,
+            comment: comment,
+            avatar: user.photoURL,
+            user: user.displayName,
+        }
+        fullPost = {
+            ...fullPost, comments: fullPost.comments.concat(newComment)
+        }
+
+        axios.put(`/upload/post/${fullPost.id}`, fullPost)
+    }
+
 
     return (
         <Router>
@@ -70,9 +92,36 @@ const PostShow = ({fullPost}) => {
 
             <div className='flex w-full border-2 border-black my-2'>
                 <div className= 'w-full '><button className={`w-full font-bold ${color}`} onClick={handleLikeClick}>Like {tempLikes}</button></div>
-                <div className=' w-full '><button className='w-full font-bold'>Comment</button></div>
+                <div className=' w-full '><button className='w-full font-bold' onClick={() =>setShowComments(!showComments)}>Comment</button></div>
                 <div className=' w-full '><button className='w-full font-bold'>Share</button></div>
             </div>
+
+            {
+                showComments ?
+                <div>
+                <form onSubmit={handleSubmit}> 
+                <div className="flex items-center">
+                    <img className="inline-block h-8 w-8 rounded-full ring-2 ring-black my-2 mx-2" src={user.photoURL} alt=""></img>
+
+                    <div className="bg-gray-200 flex items-center rounded-full mx-4 w-96">
+                        <input  onChange={handleComment} type='text' className='w-full bg-transparent rounded-full py-2 px-2' placeholder='Write a comment'></input>
+                    </div>
+                    <br></br>
+                </div>
+                <button className='bg-blue-200 rounded-lg mx-2 font-bold my-2' type='submit'>Comment</button>
+                </form>
+
+                {fullPost.comments.map((com,i) => (
+                    <Comment
+                        key={fullPost.comments.length-i}
+                        fullComment = {com}
+                    />
+                ))}
+                </div>
+
+                : console.log('do not show comments')
+            }
+
         </div>
         <br></br>
         </Router>
