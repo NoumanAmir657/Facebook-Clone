@@ -9,9 +9,11 @@ import {IoMdNotifications} from 'react-icons/io'
 import {BsArrowDownShort} from 'react-icons/bs'
 import {GiHamburgerMenu} from 'react-icons/gi'
 import {BrowserRouter as Router, Switch, Link, Route, useParams, useHistory} from "react-router-dom"
+import Home from './Home'
+import Profile from './Profile'
 
 
-const NavBar = () => {
+const NavBar = ({postsData, setPostsData}) => {
     const [color, setColor] = useState(['blue', 'black', 'black'])
     const [display, setDisplay] = useState(['block', 'hidden'])
     const [style, setStyle] = useState('w-full w-60 hidden md:hidden')
@@ -94,6 +96,15 @@ const NavBar = () => {
         </div>
 
         </div>
+
+        <Switch>
+        <Route path='/profile'>
+          <Profile/>
+        </Route>
+        <Route path='/'>
+          <Home postsData={postsData} setPostsData={setPostsData}/>
+        </Route>
+        </Switch>
 
         </Router>
     )
