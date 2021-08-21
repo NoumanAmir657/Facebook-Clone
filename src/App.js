@@ -16,6 +16,7 @@ const pusher = new Pusher('93c8583ebfa4115097cd', {
 const App = () => {
   const [postsData, setPostsData] = useState([])
   const [{user}, dispatch] = useStateValue()
+  const [currentUser, setCurrentUser] = useState()
 
   
   useEffect(() => {
@@ -40,16 +41,22 @@ const App = () => {
 
   useEffect(() => {
     syncFeed()
+    axios.get('/retrieve/users')
+    .then((res) => {
+      console.log(res.data)
+      setCurrentUser(res.data)
+      console.log(currentUser)
+    })
   }, [])
 
   return (
     <div>
     {
       user ? (
-        <NavBar postsData={postsData} setPostsData={setPostsData}/>
+        <NavBar postsData={postsData} setPostsData={setPostsData} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
         )
       : (
-        <Login/>
+        <Login currentUser={currentUser} setCurrentUser={setCurrentUser}/>
       ) 
     }
     

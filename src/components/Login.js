@@ -2,11 +2,12 @@ import React from 'react'
 import { auth, provider } from '../firebase'
 import { useStateValue } from '../StateProvider'
 import { actionTypes} from '../Reducer'
+import axios from '../axios'
 
-const Login = () => {
+const Login = ({currentUser, setCurrentUser}) => {
     const [state, dispatch] = useStateValue()
 
-    const signIn = () => {
+    const signIn = async () => {
         auth.signInWithPopup(provider)
         .then(result => {
             console.log(result)
@@ -15,6 +16,18 @@ const Login = () => {
                 type: actionTypes.SET_USER,
                 user: result.user
             })
+
+            const newUser = {
+                userName: result.user.displayName,
+                email: result.user.email,
+                fbProfilePic: null,
+                coverImage: null,
+            }
+
+            axios.post('/upload/user', newUser)
+            setCurrentUser(currentUser.find(u => u.email === newUser.email))
+            console.log(currentUser)
+
         }).catch(error => alert(error.message))
     }
 

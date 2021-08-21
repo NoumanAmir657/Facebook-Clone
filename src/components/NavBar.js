@@ -13,7 +13,7 @@ import Home from './Home'
 import Profile from './Profile'
 
 
-const NavBar = ({postsData, setPostsData}) => {
+const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
     const [color, setColor] = useState(['blue', 'black', 'black'])
     const [display, setDisplay] = useState(['block', 'hidden'])
     const [style, setStyle] = useState('w-full w-60 hidden md:hidden')
@@ -99,7 +99,7 @@ const NavBar = ({postsData, setPostsData}) => {
 
         <Switch>
         <Route path='/profile'>
-          <Profile postsData={postsData}/>
+          <Profile postsData={postsData} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
         </Route>
         <Route path='/'>
           <Home postsData={postsData} setPostsData={setPostsData}/>
