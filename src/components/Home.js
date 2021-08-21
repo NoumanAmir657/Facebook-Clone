@@ -14,12 +14,8 @@ const Home = ({postsData, setPostsData}) => {
 
     return (
         <div className='bg-gray-100'>
-
-        {
-          user ? (
             <React.Fragment>
             
-    
             <div className='flex justify-between'>
       
               <SideBar/>
@@ -45,10 +41,6 @@ const Home = ({postsData, setPostsData}) => {
           
             </div>  
             </React.Fragment>
-          ) : (
-            <Login/>
-          )
-        }
         </div>
     )
 }

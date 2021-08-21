@@ -99,7 +99,7 @@ const NavBar = ({postsData, setPostsData}) => {
 
         <Switch>
         <Route path='/profile'>
-          <Profile/>
+          <Profile postsData={postsData}/>
         </Route>
         <Route path='/'>
           <Home postsData={postsData} setPostsData={setPostsData}/>
