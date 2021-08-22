@@ -39,14 +39,19 @@ const App = () => {
     })
   }
 
-  useEffect(() => {
-    syncFeed()
+  const syncUsers = () => {
     axios.get('/retrieve/users')
     .then((res) => {
       console.log(res.data)
       setCurrentUser(res.data)
-      console.log(currentUser)
+      console.log(currentUser)  
     })
+    
+  }
+
+  useEffect(() => {
+    syncFeed()
+    syncUsers()
   }, [])
 
   return (

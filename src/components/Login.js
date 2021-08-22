@@ -25,8 +25,8 @@ const Login = ({currentUser, setCurrentUser}) => {
             }
 
             axios.post('/upload/user', newUser)
-            setCurrentUser(currentUser.find(u => u.email === newUser.email))
             console.log(currentUser)
+            setCurrentUser(currentUser.find(u => u.email === newUser.email))
 
         }).catch(error => alert(error.message))
     }

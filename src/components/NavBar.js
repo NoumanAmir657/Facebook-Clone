@@ -17,8 +17,10 @@ const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
     const [color, setColor] = useState(['blue', 'black', 'black'])
     const [display, setDisplay] = useState(['block', 'hidden'])
     const [style, setStyle] = useState('w-full w-60 hidden md:hidden')
+    const [profileColor, setProfileColor] = useState('bg-gray-200 text-black')
 
     const changeColor = (index) => {
+        setProfileColor('bg-gray-200 text-black')
         setColor(color.map((c, n) => n === index ? c = 'blue' : c = 'black'))
         console.log(color)
     }
@@ -27,13 +29,22 @@ const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
         if (display[0] === 'block'){
             setDisplay(['hidden', 'block'])
             setStyle('w-full w-60 block md:hidden')
-            console.log('hello')
         }
         else {
             setDisplay(['block', 'hidden'])
             setStyle('w-full w-60 hidden md:hidden')
-            console.log('hello 2')
         }   
+    }
+
+    const toggleProfile = () => {
+        if (profileColor === 'bg-gray-200 text-black' || color[0] === 'black' && color[1] === 'black' &&  color[2] === 'black'){
+            setProfileColor('bg-blue-600 text-white')
+            setColor(['black', 'black', 'black'])
+            
+        }
+        else {
+            setProfileColor('bg-gray-200 text-black')
+        }
     }
 
     return(
@@ -65,7 +76,7 @@ const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
 
             {/*Profile, Messenger, Notif, Account*/}
             <div className="h-full w-48 flex">
-                <div className='bg-gray-100 w-75 rounded-full py-2 px-3'><Link to='/profile'>Profile</Link></div>
+                <div className={`${profileColor} w-75 rounded-full py-2 px-3`}><Link to='/profile' onClick={toggleProfile}>Profile</Link></div>
                 <div className='bg-gray-100 p-2 rounded-full'><Link to='/messenger'><SiMessenger className='w-6 h-full'/></Link></div>
                 <div className='bg-gray-100 p-2 rounded-full'><Link to='/notifications'><IoMdNotifications className='w-6 h-full'/></Link></div>
                 <div className='bg-gray-100 p-2 rounded-full'><Link to='/account'><BsArrowDownShort className='w-6 h-full'/></Link></div>
