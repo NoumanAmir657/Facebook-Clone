@@ -6,9 +6,11 @@ import axios from '../axios'
 const Profile = ({postsData, currentUser, setCurrentUser}) => {
     const [{user}, dispatch] = useStateValue()
     const [image, setImage] = useState(null)
+    const [change, setChange] = useState()
 
     const handleSubmit = async (event) => {
         event.preventDefault()
+        
         console.log('Cover Images uploaded')
 
         const imgForm = new FormData()
@@ -31,6 +33,7 @@ const Profile = ({postsData, currentUser, setCurrentUser}) => {
                 setCurrentUser(userData)
 
                 axios.put(`/upload/user/${userData.id}`, userData)
+                setChange(false)
         })
     }
 
@@ -44,7 +47,7 @@ const Profile = ({postsData, currentUser, setCurrentUser}) => {
     return (
         <div>
         {
-            !currentUser.coverImage ?
+            (!currentUser.coverImage || change) ?
             (
                 <form onSubmit={handleSubmit}>
                     <div className="mb-1">
@@ -55,10 +58,16 @@ const Profile = ({postsData, currentUser, setCurrentUser}) => {
                             <input type="file" className="h-full w-full opacity-0" name="" onChange={handleChange}></input>
                         </div>
                     </div>
-                    <div className="mt-3 text-right"><button type='submit' className="ml-2 h-10 w-32 bg-blue-600 rounded text-white hover:bg-blue-700">Upload</button></div>
+                    <div className='text-right'>
+                    <button type='submit' className="ml-2 h-10 w-32 bg-blue-600 rounded text-white hover:bg-blue-700">Upload</button>
+                    <button type='button' className="my-1 mx-1 h-10 w-32 bg-blue-600 rounded text-white hover:bg-blue-700" onClick={() => setChange(!change)}>Do not change</button>
+                    </div>  
                 </form>
             ) : (
+                <div>
                 <img src={`/retrieve/cover/single?name=${currentUser.coverImage}`} className='w-full h-80' alt='cover_image_here' />
+                <button className="my-1 mx-1 h-10 w-32 bg-blue-600 rounded text-white hover:bg-blue-700" onClick={() => setChange(!change)}>Change</button>
+                </div>
             )   
         }
         
