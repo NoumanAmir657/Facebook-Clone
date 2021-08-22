@@ -82,10 +82,8 @@ const PostShow = ({fullPost}) => {
 
             {
                 fullPost.imgName ? (
-                    
                         <img src={`/retrieve/image/single?name=${fullPost.imgName}`} className='m-auto' width='500px' height='' alt='image_here' />
-                    
-                ) : (
+                        ) : (
                         console.log('')
                     )
             }
@@ -119,7 +117,7 @@ const PostShow = ({fullPost}) => {
                 ))}
                 </div>
 
-                : console.log('do not show comments')
+                : console.log('')
             }
 
         </div>

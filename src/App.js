@@ -16,7 +16,7 @@ const pusher = new Pusher('93c8583ebfa4115097cd', {
 const App = () => {
   const [postsData, setPostsData] = useState([])
   const [{user}, dispatch] = useStateValue()
-  const [currentUser, setCurrentUser] = useState()
+  const [currentUser, setCurrentUser] = useState([])
 
   
   useEffect(() => {
@@ -31,22 +31,19 @@ const App = () => {
   
 
 
-  const syncFeed = () => {
-    axios.get('/retrieve/posts')
-    .then((res) => {
-      console.log(res.data)
-      setPostsData(res.data)
-    })
+  const syncFeed = async () => {
+    const res = await axios.get('/retrieve/posts')
+    
+    console.log(res.data)
+    setPostsData(res.data)
+    console.log(postsData)
   }
 
-  const syncUsers = () => {
-    axios.get('/retrieve/users')
-    .then((res) => {
-      console.log(res.data)
-      setCurrentUser(res.data)
-      console.log(currentUser)  
-    })
-    
+  const syncUsers = async () => {
+    const res = await axios.get('/retrieve/users')
+    console.log(res.data)
+    setCurrentUser(res.data)
+    console.log(currentUser)
   }
 
   useEffect(() => {

@@ -10,6 +10,11 @@ const Profile = ({postsData, currentUser, setCurrentUser}) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
+
+        if (currentUser.coverImage){
+            console.log("DELETED")
+            axios.delete(`/delete/cover/?name=${currentUser.coverImage}`)
+        }
         
         console.log('Cover Images uploaded')
 

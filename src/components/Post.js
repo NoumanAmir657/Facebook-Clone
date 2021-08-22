@@ -107,7 +107,7 @@ const Post = ({postsData, setPostsData}) => {
             <div className='flex justify-center my-2 w-full'>
             
             <input type='file' className='' onChange={handleChange}></input>
-            <button type='submit' className='bg-blue-300 hover:bg-blue-500 rounded-lg px-3 border-2 border-black font-bold'>Post</button>
+            <button type='submit' className='bg-blue-600 text-white hover:bg-blue-700 rounded-lg px-3 border-2 border-white w-24'>Post</button>
             
             </div>
 

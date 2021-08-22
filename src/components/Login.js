@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { auth, provider } from '../firebase'
 import { useStateValue } from '../StateProvider'
 import { actionTypes} from '../Reducer'
@@ -6,6 +6,7 @@ import axios from '../axios'
 
 const Login = ({currentUser, setCurrentUser}) => {
     const [state, dispatch] = useStateValue()
+
 
     const signIn = async () => {
         auth.signInWithPopup(provider)
@@ -25,9 +26,19 @@ const Login = ({currentUser, setCurrentUser}) => {
             }
 
             axios.post('/upload/user', newUser)
-            console.log(currentUser)
-            setCurrentUser(currentUser.find(u => u.email === newUser.email))
-
+            
+            
+            if (currentUser.length !== 0){
+                const temp = currentUser.concat(newUser)
+                setCurrentUser(temp.find(u => u.email === newUser.email))
+                //console.log(currentUser.find(u => u.email === newUser.email))
+                //setCurrentUser(currentUser.find(u => u.email === newUser.email))
+            }
+            else {
+                console.log(newUser)
+                setCurrentUser(newUser)
+            }
+            
         }).catch(error => alert(error.message))
     }
 
