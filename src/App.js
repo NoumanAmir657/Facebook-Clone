@@ -52,6 +52,7 @@ const App = () => {
   }, [])
 
   return (
+    <Router>
     <div>
     {
       user ? (
@@ -63,6 +64,7 @@ const App = () => {
     }
     
     </div>
+    </Router>
   )
 }
 

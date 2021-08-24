@@ -48,7 +48,7 @@ const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
     }
 
     return(
-        <Router>
+        <React.Fragment>
         <nav className='flex items-center justify-between w-full shadow-md bg-white fixed z-40'>
 
             {/*Facebook icon and Search Bar*/}
@@ -116,8 +116,7 @@ const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
           <Home postsData={postsData} setPostsData={setPostsData}/>
         </Route>
         </Switch>
-
-        </Router>
+        </React.Fragment>
     )
 }
 
