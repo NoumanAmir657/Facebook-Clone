@@ -1,17 +1,15 @@
-import React, { Fragment, useState } from 'react'
-import {BrowserRouter as Router, Switch, Link, Route, useParams, useHistory} from "react-router-dom"
+import React, {useState } from 'react'
+import {BrowserRouter as Router, Link} from "react-router-dom"
 import { BsSearch } from 'react-icons/bs'
 import {IoMdPhotos} from 'react-icons/io'
 import {BsCameraVideoFill} from 'react-icons/bs'
 import {VscSmiley} from 'react-icons/vsc'
 import { useStateValue } from '../StateProvider'
 import axios from '../axios.js'
-import { GiConsoleController } from 'react-icons/gi'
 
 const Post = ({postsData, setPostsData}) => {
     const [image, setImage] = useState(null)
     const [postMsg, setPostMsg] = useState('')
-    const [imageURL, setImageURL] = useState('')
     const [{user}, dispatch] = useStateValue()
 
     // console.log(user)

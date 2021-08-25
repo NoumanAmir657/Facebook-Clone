@@ -1,8 +1,6 @@
 import React from 'react'
-import { useStateValue } from '../StateProvider'
 
 const Comment = ({fullComment}) => {
-    const [{user}, dispatch] = useStateValue()
     return (
         <div className='bg-white container shadow-2xl rounded-sm py-2'>
         <div className='flex'>

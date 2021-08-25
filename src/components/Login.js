@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { auth, provider } from '../firebase'
 import { useStateValue } from '../StateProvider'
 import { actionTypes} from '../Reducer'
@@ -24,6 +24,8 @@ const Login = ({currentUser, setCurrentUser}) => {
                 fbProfilePic: null,
                 coverImage: null,
             }
+
+            localStorage.setItem('logged-in-user', JSON.stringify(result.user))
 
             axios.post('/upload/user', newUser)
             

@@ -1,6 +1,6 @@
 import axios from '../axios'
 import React, {useState} from 'react'
-import {BrowserRouter as Router, Switch, Link, Route, useParams, useHistory} from "react-router-dom"
+import {BrowserRouter as Router, Link} from "react-router-dom"
 import { useStateValue } from '../StateProvider'
 import { useEffect } from 'react'
 import Comment from './Comment'

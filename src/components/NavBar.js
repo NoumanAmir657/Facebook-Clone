@@ -8,7 +8,7 @@ import {SiMessenger} from 'react-icons/si'
 import {IoMdNotifications} from 'react-icons/io'
 import {BsArrowDownShort} from 'react-icons/bs'
 import {GiHamburgerMenu} from 'react-icons/gi'
-import {BrowserRouter as Router, Switch, Link, Route, useParams, useHistory} from "react-router-dom"
+import {Switch, Link, Route} from "react-router-dom"
 import Home from './Home'
 import Profile from './Profile'
 
@@ -47,6 +47,11 @@ const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
         }
     }
 
+    const logOut = () => {
+        localStorage.clear()
+        window.location.reload()
+    }
+
     return(
         <React.Fragment>
         <nav className='flex items-center justify-between w-full shadow-md bg-white fixed z-40'>
@@ -75,11 +80,11 @@ const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
             </div>
 
             {/*Profile, Messenger, Notif, Account*/}
-            <div className="h-full w-48 flex">
-                <div className={`${profileColor} w-75 rounded-full py-2 px-3`}><Link to='/profile' onClick={toggleProfile}>Profile</Link></div>
+            <div className="h-full w-70 flex justify-end items-center">
+                <div className={`${profileColor} w-20 rounded-full py-2 px-3`}><Link to='/profile' onClick={toggleProfile}>Profile</Link></div>
                 <div className='bg-gray-100 p-2 rounded-full'><Link to='/messenger'><SiMessenger className='w-6 h-full'/></Link></div>
                 <div className='bg-gray-100 p-2 rounded-full'><Link to='/notifications'><IoMdNotifications className='w-6 h-full'/></Link></div>
-                <div className='bg-gray-100 p-2 rounded-full'><Link to='/account'><BsArrowDownShort className='w-6 h-full'/></Link></div>
+                <button className='hidden md:block' onClick={logOut}><div className={`bg-gray-100 hover:bg-gray-300 md:w-30 rounded-full py-2 px-3`}>Log Out</div></button>
             </div>
             
         </nav>
@@ -105,6 +110,8 @@ const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
         <div><Link to='/'><MdVideoLibrary color={color[2]} className='w-8 h-full' onClick={() => changeColor(2)}/></Link></div>
         <div className='py-4 px-3 font-bold text-xl'><Link to='/watch' onClick={() => changeColor(2)}>Watch</Link></div>
         </div>
+
+        <div className=' px-1 py-2 w-full bg-gray-400'><button className='bg-blue-700 hover:bg-blue-800 p-2 text-white rounded-xl' onClick={logOut}>Log Out</button></div>
 
         </div>
 

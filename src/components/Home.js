@@ -1,17 +1,11 @@
-import React, {useState} from 'react'
-import NavBar from './NavBar';
+import React from 'react'
 import SideBar from './SideBar';
 import StoryReel from './StoryReel';
 import Post from './Post'
 import PostShow from './PostShow';
 import Widgets from './Widget';
-import Login from './Login'
-import {useStateValue} from '../StateProvider'
 
 const Home = ({postsData, setPostsData}) => {
-    const [{user}, dispatch] = useStateValue()
-    
-
     return (
         <div className='bg-gray-100'>
             <React.Fragment>

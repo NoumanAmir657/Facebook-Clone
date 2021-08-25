@@ -1,6 +1,6 @@
 import React from 'react'
 import Story from './Story'
-import {BrowserRouter as Router, Switch, Link, Route, useParams, useHistory} from "react-router-dom"
+import {BrowserRouter as Router} from "react-router-dom"
 
 const StoryReel = () => {
     return (

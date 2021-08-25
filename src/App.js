@@ -2,12 +2,11 @@ import React, {useState} from 'react'
 import axios from './axios'
 import { useEffect } from 'react';
 import Pusher from 'pusher-js'
-import Home from './components/Home';
-import Profile from './components/Profile'
-import {BrowserRouter as Router, Switch, Link, Route, useParams, useHistory} from "react-router-dom"
+import {BrowserRouter as Router} from "react-router-dom"
 import NavBar from './components/NavBar';
 import { useStateValue } from './StateProvider';
 import Login from './components/Login';
+import { actionTypes } from './Reducer';
 
 const pusher = new Pusher('93c8583ebfa4115097cd', {
   cluster: 'ap2'
@@ -42,14 +41,34 @@ const App = () => {
   const syncUsers = async () => {
     const res = await axios.get('/retrieve/users')
     console.log(res.data)
-    setCurrentUser(res.data)
+    console.log(user)
+    if(JSON.parse(localStorage.getItem('logged-in-user'))){
+      console.log('inside user if')
+      setCurrentUser(res.data.find(x => x.email === JSON.parse(localStorage.getItem('logged-in-user')).email))
+    }
+    else {
+      setCurrentUser(res.data)
+      console.log('user is empty')
+    }
     console.log(currentUser)
   }
 
-  useEffect(() => {
+  const tempFunction = async () => {
+    dispatch({
+      type: actionTypes.SET_USER,
+      user: JSON.parse(localStorage.getItem('logged-in-user'))
+    })
+  }
+
+  useEffect(()  => {
+    tempFunction()
     syncFeed()
     syncUsers()
   }, [])
+
+  useEffect(() => {
+    console.log(user)
+  }, [user])
 
   return (
     <Router>
