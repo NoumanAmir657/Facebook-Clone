@@ -66,9 +66,6 @@ const App = () => {
     syncUsers()
   }, [])
 
-  useEffect(() => {
-    console.log(user)
-  }, [user])
 
   return (
     <Router>

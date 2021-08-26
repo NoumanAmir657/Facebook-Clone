@@ -18,10 +18,12 @@ const Login = ({currentUser, setCurrentUser}) => {
                 user: result.user
             })
 
+            console.log(result.user)
+
             const newUser = {
                 userName: result.user.displayName,
                 email: result.user.email,
-                fbProfilePic: null,
+                fbProfilePic: result.user.photoURL,
                 coverImage: null,
             }
 

@@ -11,6 +11,7 @@ import {GiHamburgerMenu} from 'react-icons/gi'
 import {Switch, Link, Route} from "react-router-dom"
 import Home from './Home'
 import Profile from './Profile'
+import { Friends } from './Friends';
 
 
 const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
@@ -75,7 +76,7 @@ const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
 
             <div className="h-full w-60 items-center justify-between hidden md:flex">
                 <div className='block md:inline-block'><Link to='/'><AiFillHome color={color[0]} className='w-8 h-full' onClick={() => changeColor(0)}/></Link></div>
-                <div className='block md:inline-block'><Link to='/groups'><AiOutlineUsergroupAdd color={color[1]} className='w-8 h-full' onClick={() => changeColor(1)}/></Link></div>
+                <div className='block md:inline-block'><Link to='/friends'><AiOutlineUsergroupAdd color={color[1]} className='w-8 h-full' onClick={() => changeColor(1)}/></Link></div>
                 <div className='block md:inline-block'><Link to='/watch'><MdVideoLibrary color={color[2]} className='w-8 h-full' onClick={() => changeColor(2)}/></Link></div>
             </div>
 
@@ -103,7 +104,7 @@ const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
 
         <div className='flex w-full bg-gray-400'>
         <div><Link to='/'><AiOutlineUsergroupAdd color={color[1]} className='w-8 h-full' onClick={() => changeColor(1)}/></Link></div>
-        <div className='py-4 px-3 font-bold text-xl'><Link to='/groups' onClick={() => changeColor(1)}>Groups</Link></div>
+        <div className='py-4 px-3 font-bold text-xl'><Link to='/friends' onClick={() => changeColor(1)}>Friends</Link></div>
         </div>
 
         <div className='flex w-full bg-gray-400'>
@@ -118,6 +119,9 @@ const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
         <Switch>
         <Route path='/profile'>
           <Profile postsData={postsData} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+        </Route>
+        <Route path='/friends'>
+            <Friends></Friends>
         </Route>
         <Route path='/'>
           <Home postsData={postsData} setPostsData={setPostsData}/>
