@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { auth, provider } from '../firebase'
 import { useStateValue } from '../StateProvider'
 import { actionTypes} from '../Reducer'
@@ -6,6 +6,10 @@ import axios from '../axios'
 
 const Login = ({currentUser, setCurrentUser}) => {
     const [state, dispatch] = useStateValue()
+
+    useEffect(() => {
+        console.log(currentUser)
+    }, [currentUser])
 
 
     const signIn = async () => {
@@ -30,18 +34,21 @@ const Login = ({currentUser, setCurrentUser}) => {
             localStorage.setItem('logged-in-user', JSON.stringify(result.user))
 
             axios.post('/upload/user', newUser)
-            
-            
-            if (currentUser.length !== 0){
-                const temp = currentUser.concat(newUser)
-                setCurrentUser(temp.find(u => u.email === newUser.email))
-                //console.log(currentUser.find(u => u.email === newUser.email))
-                //setCurrentUser(currentUser.find(u => u.email === newUser.email))
-            }
-            else {
-                console.log(newUser)
-                setCurrentUser(newUser)
-            }
+            .then(v => {
+                if (currentUser.length !== 0){
+                    console.log(v.data)
+                    //const temp = currentUser.concat(v.data)
+                    //console.log(temp)
+                    //setCurrentUser(temp.filter(u => u.email === v.data.email))
+                    Array.isArray(v.data) ? setCurrentUser(v.data[0]) : setCurrentUser(v.data)
+                    //console.log(currentUser.find(u => u.email === newUser.email))
+                    //setCurrentUser(currentUser.find(u => u.email === newUser.email))
+                }
+                else {
+                    console.log(v.data)
+                    setCurrentUser(v.data)
+                }
+            })
             
         }).catch(error => alert(error.message))
     }

@@ -6,7 +6,7 @@ import axios from '../axios'
 const Profile = ({postsData, currentUser, setCurrentUser}) => {
     const [{user}, dispatch] = useStateValue()
     const [image, setImage] = useState(null)
-    const [change, setChange] = useState()
+    const [change, setChange] = useState(false)
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -51,7 +51,8 @@ const Profile = ({postsData, currentUser, setCurrentUser}) => {
 
     return (
         <div>
-        {
+        {console.log(currentUser)}
+        {   
             (!currentUser.coverImage || change) ?
             (
                 <form onSubmit={handleSubmit}>
