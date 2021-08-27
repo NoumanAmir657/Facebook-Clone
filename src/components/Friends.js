@@ -1,40 +1,64 @@
 import React, {useState, useEffect} from 'react'
 import axios from '../axios'
-import { ShowFriends } from './ShowFriends'
 import { useStateValue } from '../StateProvider'
+import Accepted from './Accepted'
+import NavbarForFriends from './NavbarForFriends'
+import People from './People'
+import Pending from './Pending'
 
-export const Friends = () => {
+export const Friends = ({currentUser, setCurrentUser}) => {
+    const [index, setIndex] = useState(1)
     const [allUsers, setAllUsers] = useState([])
-    const [{user}, dispatch] = useStateValue()
+    const [pendingUsers, setPendingUsers] = useState([])
+    const [friends, setFriends] = useState([])
 
     useEffect(() => {
         getUsers()
-
+        console.log(currentUser)
       }, [])
 
     const getUsers = async () => {
         const res = await axios.get("/retrieve/users/")
         console.log(res.data)
-        res.data = res.data.filter(x => x.email !== user.email)
-        setAllUsers(res.data)
+        console.log(currentUser)
+        setAllUsers(res.data.filter(x => x.email !== currentUser.email))
     }
 
-    return (
+    if (index === 1){
+        return (
+            <React.Fragment>
+            <NavbarForFriends index={index} setIndex={setIndex}/>
+            <div>
+            {
+                allUsers.map((singleUser,i) => (
+                  <People
+                      key={i}
+                      singleUser = {singleUser}
+                      currentUser={currentUser}
+                      setCurrentUser={setCurrentUser}
+                      allUsers={allUsers}
+                      setAllUsers={setAllUsers}
+                  />
+              ))
+            }
+            </div>
+            </React.Fragment>
+        )
+    }
+    else if(index === 0){
+        return(
         <React.Fragment>
-        <div className='container w-full my-4'>
-            <h1 className='text-2xl font-bold text-center'>People you may know</h1>
-        </div>
-        <div>
-        {
-            allUsers.map((singleUser,i) => (
-              <ShowFriends
-                  key={i}
-                  singleUser = {singleUser}
-              />
-          ))
-        }
-        </div>
+            <NavbarForFriends index={index} setIndex={setIndex}/>
+            <Accepted/>
         </React.Fragment>
-
-    )
+        )
+    }
+    else {
+        return(
+            <React.Fragment>
+                <NavbarForFriends index={index} setIndex={setIndex}/>
+                <Pending/>
+            </React.Fragment>
+        )
+    }
 }

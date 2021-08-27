@@ -12,10 +12,11 @@ import {Switch, Link, Route} from "react-router-dom"
 import Home from './Home'
 import Profile from './Profile'
 import { Friends } from './Friends';
+import { Notification } from './Notification';
 
 
 const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
-    const [color, setColor] = useState(['blue', 'black', 'black'])
+    const [color, setColor] = useState(['blue', 'black', 'black', 'black'])
     const [display, setDisplay] = useState(['block', 'hidden'])
     const [style, setStyle] = useState('w-full w-60 hidden md:hidden')
     const [profileColor, setProfileColor] = useState('bg-gray-200 text-black')
@@ -38,15 +39,15 @@ const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
     }
 
     const toggleProfile = () => {
-        if (profileColor === 'bg-gray-200 text-black' || color[0] === 'black' && color[1] === 'black' &&  color[2] === 'black'){
+        if (profileColor === 'bg-gray-200 text-black' || color[0] === 'black' && color[1] === 'black' &&  color[2] === 'black' && color[3] === 'black'){
             setProfileColor('bg-blue-600 text-white')
-            setColor(['black', 'black', 'black'])
-            
+            setColor(['black', 'black', 'black', 'black'])
         }
         else {
             setProfileColor('bg-gray-200 text-black')
         }
     }
+
 
     const logOut = () => {
         localStorage.clear()
@@ -84,7 +85,7 @@ const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
             <div className="h-full w-70 flex justify-end items-center">
                 <div className={`${profileColor} w-20 rounded-full py-2 px-3`}><Link to='/profile' onClick={toggleProfile}>Profile</Link></div>
                 <div className='bg-gray-100 p-2 rounded-full'><Link to='/messenger'><SiMessenger className='w-6 h-full'/></Link></div>
-                <div className='bg-gray-100 p-2 rounded-full'><Link to='/notifications'><IoMdNotifications className='w-6 h-full'/></Link></div>
+                <div className='bg-gray-100 p-2 rounded-full'><Link to='/notifications'><IoMdNotifications color={color[3]} className='w-6 h-full' onClick={() => changeColor(3)}/></Link></div>
                 <button className='hidden md:block' onClick={logOut}><div className={`bg-gray-100 hover:bg-gray-300 md:w-30 rounded-full py-2 px-3`}>Log Out</div></button>
             </div>
             
@@ -103,7 +104,7 @@ const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
         </div>
 
         <div className='flex w-full bg-gray-400'>
-        <div><Link to='/'><AiOutlineUsergroupAdd color={color[1]} className='w-8 h-full' onClick={() => changeColor(1)}/></Link></div>
+        <div><Link to='/friends'><AiOutlineUsergroupAdd color={color[1]} className='w-8 h-full' onClick={() => changeColor(1)}/></Link></div>
         <div className='py-4 px-3 font-bold text-xl'><Link to='/friends' onClick={() => changeColor(1)}>Friends</Link></div>
         </div>
 
@@ -118,10 +119,13 @@ const NavBar = ({postsData, setPostsData, currentUser, setCurrentUser}) => {
 
         <Switch>
         <Route path='/profile'>
-          <Profile postsData={postsData} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+            <Profile postsData={postsData} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
         </Route>
         <Route path='/friends'>
-            <Friends></Friends>
+            <Friends currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+        </Route>
+        <Route path='/notifications'>
+            <Notification currentUser={currentUser} setCurrentUser={setCurrentUser}/>
         </Route>
         <Route path='/'>
           <Home postsData={postsData} setPostsData={setPostsData}/>

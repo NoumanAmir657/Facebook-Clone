@@ -29,6 +29,9 @@ const Login = ({currentUser, setCurrentUser}) => {
                 email: result.user.email,
                 fbProfilePic: result.user.photoURL,
                 coverImage: null,
+                friends: [],
+                pending: [],
+                requestedTo: []
             }
 
             localStorage.setItem('logged-in-user', JSON.stringify(result.user))

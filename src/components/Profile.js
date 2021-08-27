@@ -99,7 +99,6 @@ const Profile = ({postsData, currentUser, setCurrentUser}) => {
         }
         </div>
 
-        
         </div>
 
         </div>
