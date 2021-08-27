@@ -54,7 +54,7 @@ const PostShow = ({fullPost}) => {
         setComment(event.target.value)
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
         const newComment = {
             email: user.email,
@@ -66,7 +66,8 @@ const PostShow = ({fullPost}) => {
             ...fullPost, comments: fullPost.comments.concat(newComment)
         }
 
-        axios.put(`/upload/post/${fullPost.id}`, fullPost)
+        await axios.put(`/upload/post/${fullPost.id}`, fullPost)
+        setComment('')
     }
 
 
@@ -102,7 +103,7 @@ const PostShow = ({fullPost}) => {
                     <img className="inline-block h-8 w-8 rounded-full ring-2 ring-black my-2 mx-2" src={user.photoURL} alt=""></img>
 
                     <div className="bg-gray-200 flex items-center rounded-full mx-4 w-96">
-                        <input  onChange={handleComment} type='text' className='w-full bg-transparent rounded-full py-2 px-2' placeholder='Write a comment'></input>
+                        <input value={comment} onChange={handleComment} type='text' className='w-full bg-transparent rounded-full py-2 px-2' placeholder='Write a comment'></input>
                     </div>
                     <br></br>
                 </div>
