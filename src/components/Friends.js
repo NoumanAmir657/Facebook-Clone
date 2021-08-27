@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import axios from '../axios'
 import { ShowFriends } from './ShowFriends'
+import { useStateValue } from '../StateProvider'
 
 export const Friends = () => {
     const [allUsers, setAllUsers] = useState([])
+    const [{user}, dispatch] = useStateValue()
 
     useEffect(() => {
         getUsers()
@@ -12,7 +14,8 @@ export const Friends = () => {
 
     const getUsers = async () => {
         const res = await axios.get("/retrieve/users/")
-        //console.log(res.data)
+        console.log(res.data)
+        res.data = res.data.filter(x => x.email !== user.email)
         setAllUsers(res.data)
     }
 

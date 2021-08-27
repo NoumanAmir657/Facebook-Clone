@@ -106,7 +106,7 @@ const PostShow = ({fullPost}) => {
                     </div>
                     <br></br>
                 </div>
-                <button className='bg-blue-700 text-white rounded-xl mx-2 w-36 my-2' type='submit'>Post Comment</button>
+                <button className='bg-blue-700 hover:bg-blue-900 text-white rounded-xl mx-2 w-36 my-2' type='submit'>Post Comment</button>
                 </form>
 
                 {fullPost.comments.map((com,i) => (

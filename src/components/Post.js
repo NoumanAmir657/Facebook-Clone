@@ -64,6 +64,7 @@ const Post = ({postsData, setPostsData}) => {
 
         
         setImage(null)
+        event.target.postImage.value = null
         setPostMsg('')
     }
 
@@ -92,7 +93,7 @@ const Post = ({postsData, setPostsData}) => {
                 <Link to='/profile'><img className="inline-block h-10 w-10 rounded-full ring-2 ring-black my-2 mx-2" src={user.photoURL} alt=""></img></Link>
                 <div className="bg-gray-200 flex items-center rounded-full mx-4 w-96">
                     <BsSearch className='mx-2 h-10 w-5'/>
-                    <input type='text' className='w-full bg-transparent rounded-full py-2' placeholder={`What is on your mind? ${user.displayName}`} onChange={handlePostMsg}></input>
+                    <input value={postMsg} type='text' className='w-full bg-transparent rounded-full py-2' placeholder={`What is on your mind? ${user.displayName}`} onChange={handlePostMsg}></input>
                 </div>
             </div>
             
@@ -104,7 +105,7 @@ const Post = ({postsData, setPostsData}) => {
 
             <div className='flex justify-center my-2 w-full'>
             
-            <input type='file' className='' onChange={handleChange}></input>
+            <input name='postImage' type='file' className='' onChange={handleChange}></input>
             <button type='submit' className='bg-blue-600 text-white hover:bg-blue-700 rounded-lg px-3 border-2 border-white w-24'>Post</button>
             
             </div>
