@@ -1,28 +1,33 @@
 import React, {useState} from 'react'
 import axios from '../axios'
 
-const People = ({singleUser, currentUser, setCurrentUser, allUsers, setAllUsers}) => {
+const People = ({singleUser, currentUser, setCurrentUser, people, setPeople, allUsers, setAllUsers}) => {
     const [text, setText] = useState('Add as Friend')
 
     const handleClick = async () => {
-        if (text === 'Add as Friend'){
-            setText('Remove Friend')
+
             const updatedUser = {
                 ...currentUser,
-                friends: currentUser.friends.concat(singleUser.email)
+                requestedTo: currentUser.requestedTo.concat(singleUser)
             }
+            console.log(updatedUser)
+
             setCurrentUser(updatedUser)
-            await axios.put(`/upload/user/${currentUser.id}`, updatedUser)
-        }
-        else {
-            setText('Add as Friend')
-            const updatedUser = {
-                ...currentUser,
-                friends: currentUser.friends.filter(x => x !== singleUser.email)
+
+            
+            let requestedToUser = allUsers.filter(x => x.email === singleUser.email)
+            console.log(requestedToUser)
+            requestedToUser = {
+                ...requestedToUser[0],
+                pending: requestedToUser[0].pending.concat({userName: currentUser.userName, email: currentUser.email, fbProfilePic: currentUser.fbProfilePic})
             }
-            setCurrentUser(updatedUser)
+            console.log(requestedToUser)
+
             await axios.put(`/upload/user/${currentUser.id}`, updatedUser)
-        }
+            await axios.put(`/upload/user/${requestedToUser.id}`, requestedToUser)
+
+            setPeople(people.filter(u => u.email !== requestedToUser.email))
+        
     }
 
     return (

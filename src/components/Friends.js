@@ -11,17 +11,60 @@ export const Friends = ({currentUser, setCurrentUser}) => {
     const [allUsers, setAllUsers] = useState([])
     const [pendingUsers, setPendingUsers] = useState([])
     const [friends, setFriends] = useState([])
+    const [people, setPeople] = useState([])
 
     useEffect(() => {
         getUsers()
         console.log(currentUser)
       }, [])
 
+      useEffect(() => {
+        console.log(people)
+      }, [people])
+
     const getUsers = async () => {
         const res = await axios.get("/retrieve/users/")
         console.log(res.data)
-        console.log(currentUser)
-        setAllUsers(res.data.filter(x => x.email !== currentUser.email))
+        setAllUsers(allUsers.concat(res.data))
+
+        const f = currentUser.friends !== undefined ? currentUser.friends.filter(friend => res.data.filter(u => u.email === friend.email)) : null
+        console.log(f)
+        setFriends(f)
+
+        const p = currentUser.pending !== undefined ? currentUser.pending.filter(pending => res.data.filter(u => u.email === pending.email)) : null
+        console.log(p)
+        setPendingUsers(p)
+
+        const r = currentUser.requestedTo !== undefined ? currentUser.requestedTo.filter(requestedTo => res.data.filter(u => u.email === requestedTo.email)) : null
+        console.log(r)
+
+        //
+        //const peop = res.data.filter(u => f.filter(f => f.email !== u.email) && p.filter(p => p.email !== u.email) && r.filter(r => r.email !== u.email) && u.email !== currentUser.email)
+        //console.log(peop)
+
+        let temp = []
+        for (let i = 0; i < res.data.length; ++i){
+            let email = res.data[i].email
+            let c1 = f.find(f => f.email === email)
+            console.log(c1)
+            let c2 = p.find(p => p.email === email)
+            console.log(c2)
+            let c3 = r.find(r => r.email === email)
+            console.log(c3)
+
+            if (c1 || c2 || c3 ){
+                console.log("Do not add")
+            }
+            else{
+                if(currentUser.email !== email){
+                    temp = temp.concat(res.data[i])
+                }
+            }
+        }
+        console.log(temp)
+
+        //setPeople(temp)
+        temp.map(p => setPeople(people.concat({userName: p.userName, email: p.email, fbProfilePic :p.fbProfilePic})))
     }
 
     if (index === 1){
@@ -30,12 +73,14 @@ export const Friends = ({currentUser, setCurrentUser}) => {
             <NavbarForFriends index={index} setIndex={setIndex}/>
             <div>
             {
-                allUsers.map((singleUser,i) => (
+                people.map((singleUser,i) => (
                   <People
                       key={i}
                       singleUser = {singleUser}
                       currentUser={currentUser}
                       setCurrentUser={setCurrentUser}
+                      people={people}
+                      setPeople={setPeople}
                       allUsers={allUsers}
                       setAllUsers={setAllUsers}
                   />
@@ -57,7 +102,22 @@ export const Friends = ({currentUser, setCurrentUser}) => {
         return(
             <React.Fragment>
                 <NavbarForFriends index={index} setIndex={setIndex}/>
-                <Pending/>
+                <div>
+                {
+                    pendingUsers.map((singleUser, i) => (
+                        <Pending
+                            key={i}
+                            singleUser={singleUser}
+                            currentUser={currentUser}
+                            setCurrentUser={setCurrentUser}
+                            pendingUsers={pendingUsers}
+                            setPendingUsers={setPendingUsers}
+                            allUsers={allUsers}
+                            setAllUsers={setAllUsers}
+                        />
+                    ))
+                }
+                </div>
             </React.Fragment>
         )
     }
